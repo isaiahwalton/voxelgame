@@ -1,0 +1,46 @@
+﻿#version 430 core
+
+out vec4 color;
+
+in VS_OUT {
+    vec3 N;
+    vec3 L;
+    vec3 V;
+    vec4 shadow_coord;
+} fs_in;
+
+layout(binding = 0) uniform sampler2DShadow shadow_tex;
+
+uniform vec3 light_ambient_albedo = vec3(1.0);
+uniform vec3 light_diffuse_albedo = vec3(1.0);
+uniform vec3 light_specular_albedo = vec3(1.0);
+
+uniform vec3 ambient_albedo = vec3(0.1, 0.1, 0.2);
+uniform vec3 diffuse_albedo = vec3(0.4, 0.4, 0.8);
+uniform vec3 specular_albedo = vec3(0.0, 0.0, 0.0);
+uniform float specular_power = 128.0;
+
+void main(void) {
+    //color = vec4(0.4, 0.4, 0.8, 1.0);
+
+    //normalize
+    vec3 N = normalize(fs_in.N);
+    vec3 L = normalize(fs_in.L);
+    vec3 V = normalize(fs_in.V);
+
+    //calculate R
+    vec3 R = reflect(-L, N);
+
+    //calcualte ambient
+    vec3 ambient = ambient_albedo * light_ambient_albedo;
+
+    //calculate diffuse
+    vec3 diffuse = max(dot(N, L), 0.0) * diffuse_albedo * light_diffuse_albedo;
+
+    //calcualte spcular
+    vec3 specular = pow(max(dot(R, V), 0.0), specular_power) * specular_albedo * light_specular_albedo;
+
+    //write color
+    color = textureProj(shadow_tex, fs_in.shadow_coord) * vec4(ambient + diffuse + specular, 0.5);
+    //if in shadow, then multiply color by 0.5 ^^, except alpha
+}
