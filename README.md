@@ -1,0 +1,5 @@
+libarys:
+
+opengl
+glut
+libnoise
