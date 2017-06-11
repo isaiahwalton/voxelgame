@@ -9,7 +9,7 @@ std::string Hud::double_to_string(double val)
 
 void Hud::DisplayText(int x, int y, std::string text , void* font)
 {
-	glColor3d(1, 1, 1);
+	glColor3d(0.5, .7, .5);
 	glRasterPos2i(x, y);
 	for (std::string::iterator i = text.begin(); i != text.end(); ++i)
 	{
@@ -29,7 +29,7 @@ void Hud::Enable2D(bool enable)
 		glMatrixMode(GL_PROJECTION);
 		glPushMatrix();
 		glLoadIdentity();
-		glOrtho( 0, /*glutGet(GLUT_WINDOW_WIDTH)*/640, 480/*glutGet(GLUT_WINDOW_HEIGHT)*/  , 0, -1, 1 );
+		glOrtho( 0, /*glutGet(GLUT_WINDOW_WIDTH)*/1024, 768/*glutGet(GLUT_WINDOW_HEIGHT)*/  , 0, -1, 1 );
 		glMatrixMode(GL_MODELVIEW);
 		glPushMatrix();
 		glLoadIdentity();

@@ -1,6 +1,7 @@
 #pragma once
 
 #include "btBulletDynamicsCommon.h"
+#include <vector>
 
 enum CollisionTypes
 {
@@ -12,10 +13,18 @@ enum CollisionTypes
 class Physics
 {
 private:
-	//btAlignedObjectArray<btCollisionShape*> collisionShapes;
+	
+	btDefaultCollisionConfiguration* collisionConfiguration;
+	btCollisionDispatcher* dispatcher;
+	btBroadphaseInterface* overlappingPairCache;
+	btSequentialImpulseConstraintSolver* solver;
+	btDiscreteDynamicsWorld* dynamicsWorld;
+	btAlignedObjectArray<btCollisionShape*> collisionShapes;
+	
 public:
-	Physics(double gravity);
+	Physics(double gravity = -9.81);
 	~Physics();
-	void AddObject(bool dynamic/*bunches of parameters*/);
+	void Update(double time);
+	void AddObject(btScalar size, btVector3 &position, btScalar mass, btVector3 &localInertia, CollisionTypes CollisionType);
 };
 

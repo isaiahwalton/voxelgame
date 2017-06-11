@@ -1,8 +1,0 @@
-﻿  ChunkManager.cpp
-c:\users\isaiah walton\documents\projects\voxelgame\voxelgame\chunkmanager.cpp(27): warning C4101: 'data': unreferenced local variable
-c:\users\isaiah walton\documents\projects\voxelgame\voxelgame\chunkmanager.cpp(52): warning C4101: 'TopLeft': unreferenced local variable
-c:\users\isaiah walton\documents\projects\voxelgame\voxelgame\chunkmanager.cpp(51): warning C4101: 'TopRight': unreferenced local variable
-c:\users\isaiah walton\documents\projects\voxelgame\voxelgame\chunkmanager.cpp(54): warning C4101: 'BottomLeft': unreferenced local variable
-c:\users\isaiah walton\documents\projects\voxelgame\voxelgame\chunkmanager.cpp(53): warning C4101: 'BottomRight': unreferenced local variable
-  voxelgame.vcxproj -> C:\Users\Isaiah Walton\Documents\Projects\voxelgame\Debug\voxelgame.exe
-  voxelgame.vcxproj -> C:\Users\Isaiah Walton\Documents\Projects\voxelgame\Debug\voxelgame.pdb (Partial PDB)

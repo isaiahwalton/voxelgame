@@ -12,11 +12,11 @@ private:
 	int ButtonX;
 	int ButtonY;
 	Texture ButtonTex;
-	int Hight;
+	int Height;
 	int	Width;
 	char* TextureName;
 public:
-	Button(int x, int y, int hight, int width);
+	Button(int x, int y, int height, int width);
 	void DrawButton();
 	bool IsPressed(HWND hwnd);
 	void LoadButtonTex(const char* texture);

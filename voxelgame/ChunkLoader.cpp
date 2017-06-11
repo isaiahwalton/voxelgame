@@ -20,7 +20,7 @@ Chunk ChunkLoader::LoadChunk(std::string path_to_chunk)
 	std::string stuff;
 	std::getline(file, stuff, ':');
 	BlockType = 0;
-		for (int y = 0; y < WORLD_HIGHT; y++)
+		for (int y = 0; y < WORLD_HEIGHT; y++)
 		{
 			for (int x = 0; x < 15; x++)
 			{

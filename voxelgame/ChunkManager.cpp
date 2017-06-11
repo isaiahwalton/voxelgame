@@ -1,13 +1,11 @@
 #include "ChunkManager.h"
+#include "GenChunk.h"
+#include <vector>
 
-ChunkManager::ChunkManager(std::string world)
+ChunkManager::ChunkManager(std::string worldname, unsigned int seed)
 {
-	
-}
-
-void ChunkManager::DisplayChunk(Chunk chunk)
-{
-
+	mesh = Mesh();
+	this->seed = seed;
 }
 
 void ChunkManager::LoadChunk(int chunk_x, int chunk_z)
@@ -15,18 +13,17 @@ void ChunkManager::LoadChunk(int chunk_x, int chunk_z)
 	ChunkLoader loader;
 	std::string file_name;
 	file_name = WorldName + std::to_string(chunk_x) + "," + std::to_string(chunk_z);
-	loader.LoadChunk(file_name);
+	LoadedChunks[chunk_x][chunk_z] = loader.LoadChunk(file_name);
 }
 
-void ChunkManager::SaveChunk(int chunk_x, int chunk_z, Chunk chunk)
+void ChunkManager::SaveChunk(Chunk chunk)
 {
 	std::stringstream s;
 	std::string file_name;
-	file_name = WorldName + std::to_string(chunk_x) + "," + std::to_string(chunk_z);
+	file_name = WorldName + std::to_string(chunk.x) + "," + std::to_string(chunk.z);
 	std::fstream OutFile;
-	int data;
 	OutFile.open(file_name);
-	for (int y = 0; y < WORLD_HIGHT; y++)
+	for (int y = 0; y < WORLD_HEIGHT; y++)
 	{
 		for (int x = 0; x < 15; x++)
 		{
@@ -41,32 +38,25 @@ void ChunkManager::SaveChunk(int chunk_x, int chunk_z, Chunk chunk)
 	OutFile.close();
 }
 
-bool ChunkManager::CheckVisibility(double x, double y, double z, double cam_x, double cam_y, double cam_z, double angle, double upangle, int fov)
+point2 ChunkManager::WorldCoordToChunkCoord(int x, int z)
 {
-	double dist = 500 * tan(fov / 2);
-	point3 Cam;
-	Cam.x = cam_x;
-	Cam.y = cam_y;
-	Cam.z = cam_z;
-	point3 TopRight;
-	point3 TopLeft;
-	point3 BottomRight;
-	point3 BottomLeft;
-	TopRight.x = sin(angle - (fov / 2));
-	BottomRight.x = sin(angle - (fov / 2));
-	TopRight.y = sin(angle - (fov / 2));
-	BottomRight.y = sin(angle - (fov / 2));
-	if (1)
-	{
-		return true;
-	}
-	else
-	{
-		return false;
-	}
+	point2 point = point2(ceil(x / 16), ceil(z / 16));
+	return point;
 }
 
+void ChunkManager::GenerateChunk(int x, int z)
+{
+	GenChunk chunkgen = GenChunk();
+	chunkgen.GenerateChunk(x, z, seed);
+	LoadedChunks[x][z] = chunkgen.chunk;
+	LoadedChunks[x][z].GenMesh();
+}
 void ChunkManager::DisplayAllChunks()
 {
+	mesh.Update();
+}
 
+void ChunkManager::SetBlock(int x, int y, int z, types type)
+{
+	//TODO make this actually 
 }
