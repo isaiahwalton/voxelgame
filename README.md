@@ -1,7 +1,1 @@
-libarys:
-
-opengl
-
-glut
-
-libnoise
+![alt text](voxelgame/terrain.png "terrain")
